@@ -148,5 +148,87 @@ namespace CheckoutKata.Tests.Pricing
             // A: 3 for 130, B: 2 for 45, C: 1 for 20 => Total = 130 + 45 + 20 = 195
             Assert.Equal(195, totalPrice);
         }
+
+        [Fact]
+        public void GetTotalPrice_FourAs_AppliesSpecialPriceForThreePlusUnitPriceForOne()
+        {
+            // Arrange
+            var rules = new List<PricingRule>
+            {
+                new PricingRule("A", 50, 3, 130),
+                new PricingRule("B", 30, 2, 45),
+                new PricingRule("C", 20),
+                new PricingRule("D", 15)
+            };
+
+            var checkout = new Checkout(rules);
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+
+            // Act
+            int totalPrice = checkout.GetTotalPrice();
+
+            // Assert
+            // A: 3 for 130 + 1 for 50 => Total = 130 + 50 = 180
+            Assert.Equal(180, totalPrice);
+        }
+
+        [Fact]
+        public void GetTotalPrice_SixAs_AppliesSpecialPriceTwice()
+        {
+            // Arrange
+            var checkout = new Checkout(new List<PricingRule>
+            {
+                new PricingRule("A", 50, 3, 130),
+                new PricingRule("B", 30, 2, 45),
+                new PricingRule("C", 20),
+                new PricingRule("D", 15)
+            });
+
+            // Act
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+
+            var totalPrice = checkout.GetTotalPrice();
+
+            //Assert
+            // A: 3 for 130 + 3 for 130 => Total = 130 + 130 = 260
+            Assert.Equal(260, totalPrice);
+
+        }
+
+        [Fact]
+        public void GetTotalPrice_MixtureOfItems_AppliesStandardAndSpecialPrixingCorrectly()
+        {
+            // Arrange
+            var checkout = new Checkout(new List<PricingRule>
+            {
+                new PricingRule("A", 50, 3, 130),
+                new PricingRule("B", 30, 2, 45),
+                new PricingRule("C", 20),
+                new PricingRule("D", 15)
+            });
+
+            // Act
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            checkout.ScanSku("B");
+            checkout.ScanSku("B");
+            checkout.ScanSku("C");
+            checkout.ScanSku("D");
+
+            var totalPrice = checkout.GetTotalPrice();
+
+            //Assert
+            // A: 3 for 130, B: 2 for 45, C: 1 for 20, D: 1 for 15 => Total = 130 + 45 + 20 + 15 = 210
+            Assert.Equal(210, totalPrice);
+        }
     }
 }
