@@ -33,7 +33,7 @@ namespace CheckoutKata.Tests.Validation
         }
 
         [Fact]
-        public void PricingRule_withNegativeUnitPrice_ShouldThrowException()
+        public void PricingRule_WithNegativeUnitPrice_ShouldThrowException()
         {
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new PricingRule("B", -10));
@@ -88,7 +88,6 @@ namespace CheckoutKata.Tests.Validation
             var rule = new PricingRule("C", 20);
 
             // Assert
-            Assert.NotNull(rule);
             Assert.Equal("C", rule.ItemCode);
             Assert.Equal(20, rule.UnitPrice);
             Assert.Null(rule.SpecialPriceQuantity);
@@ -102,7 +101,6 @@ namespace CheckoutKata.Tests.Validation
             var rule = new PricingRule("A", 50, 3, 130);
 
             // Assert
-            Assert.NotNull(rule);
             Assert.Equal("A", rule.ItemCode);
             Assert.Equal(50, rule.UnitPrice);
             Assert.Equal(3, rule.SpecialPriceQuantity);
