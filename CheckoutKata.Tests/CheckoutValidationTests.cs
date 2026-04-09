@@ -52,15 +52,15 @@ namespace CheckoutKata.Tests
         {
             // Arrange
             var checkout = new Checkout(new List<PricingRule>());
-            
+
             // Act
             checkout.ScanSku("A");
-            
+
             // Assert
             Assert.True(true);
         }
 
-            [Fact]
+        [Fact]
         public void ScanSku_WithUnknownSku_ShouldThrowException()
         {
             // Arrange
@@ -74,6 +74,28 @@ namespace CheckoutKata.Tests
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() => checkout.ScanSku("x"));
+        }
+
+
+        // Developer note:
+        // Slight ambiguity in kata.
+        // SKUs are defined as capital letters (A, B, C, D).
+        // Lowercase "a" could represent a different unit or identifier in a real system.
+        // Would confirm expected behaviour with Product Owner if unclear.
+        [Fact]
+        public void ScanSku_WithLowerCaseSku_ShouldThrowException()
+        {
+            // Arrange
+            var rules = new List<PricingRule>
+            {
+                new PricingRule("A", 50),
+                new PricingRule("B", 30)
+            };
+
+            var checkout = new Checkout(rules);
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => checkout.ScanSku("a"));
         }
     }
 }

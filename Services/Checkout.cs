@@ -72,6 +72,14 @@ namespace CheckoutKata.Services
                 throw new ArgumentException("Stock Keeping Units cannot be null or empty.", nameof(sku));
             }
 
+            // Developer note:
+            // The kata defines SKUs as capital letters (A, B, C, D).
+            // There is slight ambiguity whether lowercase values such as "a" should be accepted.
+            // Lowercase could represent a different identifier or unit of measurement in a real system.
+            // For now, validation is case-sensitive.
+            // If business rules required case-insensitive matching, we could normalise input like this:
+            // sku = sku.ToUpperInvariant();
+
             bool skuExists = _pricingRules.Any(rule => rule.ItemCode == sku);
 
             if(!skuExists)
