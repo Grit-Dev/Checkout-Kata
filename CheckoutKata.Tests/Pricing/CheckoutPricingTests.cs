@@ -3,7 +3,7 @@ using CheckoutKata.Services;
 
 namespace CheckoutKata.Tests.Pricing
 {
-    public class CheckoutPriceTests
+    public class CheckoutPricingTests
     {
         [Fact]
         public void GetTotalPrice_NoItemsScanned_ReturnsZero()
@@ -75,7 +75,7 @@ namespace CheckoutKata.Tests.Pricing
         }
 
         [Fact]
-        public void GetTotalPrive_ThreeAs_AppliesSpecialPrice()
+        public void GetTotalPrice_ThreeAs_AppliesSpecialPrice()
         {
             // Arrange
             var rules = new List<PricingRule>
@@ -204,7 +204,7 @@ namespace CheckoutKata.Tests.Pricing
         }
 
         [Fact]
-        public void GetTotalPrice_MixtureOfItems_AppliesStandardAndSpecialPrixingCorrectly()
+        public void GetTotalPrice_MultipleItemsWithSpecialPrices_ReturnsCorrectTotal()
         {
             // Arrange
             var checkout = new Checkout(new List<PricingRule>
