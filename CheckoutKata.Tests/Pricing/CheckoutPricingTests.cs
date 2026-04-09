@@ -47,34 +47,6 @@ namespace CheckoutKata.Tests.Pricing
         }
 
         [Fact]
-        public void GetTotalPrice_MultipleItemsWithSpecialPrice_ReturnsCombinedUnitPrice()
-        {
-            // Arrange
-            var rules = new List<PricingRule>
-            {
-                new PricingRule("A", 50, 3, 130),
-                new PricingRule("B", 30, 2, 45),
-                new PricingRule("C", 20),
-                new PricingRule("D", 15)
-            };
-            var checkout = new Checkout(rules);
-            checkout.ScanSku("A");
-            checkout.ScanSku("A");
-            checkout.ScanSku("A");
-            checkout.ScanSku("B");
-            checkout.ScanSku("B");
-            checkout.ScanSku("C");
-
-            // Act
-            int totalPrice = checkout.GetTotalPrice();
-
-            // Assert
-            // A: 3 for 130, B: 2 for 45, C: 1 for 20 => Total = 130 + 45 + 20 = 195
-            Assert.Equal(195, totalPrice);
-
-        }
-
-        [Fact]
         public void GetTotalPrice_ThreeAs_AppliesSpecialPrice()
         {
             // Arrange
@@ -229,6 +201,92 @@ namespace CheckoutKata.Tests.Pricing
             //Assert
             // A: 3 for 130, B: 2 for 45, C: 1 for 20, D: 1 for 15 => Total = 130 + 45 + 20 + 15 = 210
             Assert.Equal(210, totalPrice);
+        }
+
+        [Fact]
+        public void GetTotalPrice_SingleA_UsesUnitPriceWhenSpecialPriceQuantityNotMet()
+        {
+            // Arrange
+            var checkout = new Checkout(new List<PricingRule>
+            {
+                new PricingRule("A", 50, 3, 130),
+                new PricingRule("B", 30, 2, 45),
+                new PricingRule("C", 20),
+                new PricingRule("D", 15)
+            });
+
+            // Act
+            checkout.ScanSku("A");
+
+            var totalPrice = checkout.GetTotalPrice();
+
+            //Assert
+            // A: 1 for 50 => Total = 50
+            Assert.Equal(50, totalPrice);
+        }
+
+        [Fact]
+        public void GetTotalPrice_TwoAs_UsesUnitPriceWhenSpecialPriceQuantityNotMet()
+        {
+            // Arrange
+            var checkout = new Checkout(new List<PricingRule>
+            {
+                new PricingRule("A", 50, 3, 130),
+                new PricingRule("B", 30, 2, 45),
+                new PricingRule("C", 20),
+                new PricingRule("D", 15)
+            });
+
+            // Act
+            checkout.ScanSku("A");
+            checkout.ScanSku("A");
+            var totalPrice = checkout.GetTotalPrice();
+
+            //Assert
+            // A: 2 for 100 => Total = 100
+            Assert.Equal(100, totalPrice);
+        }
+
+        [Fact]
+        public void GetTotalPrice_SingleBUsesUnitPriceWhenSpecialPriceQuantityNotMet()
+        {
+            // Arrange
+            var checkout = new Checkout(new List<PricingRule>
+            {
+                new PricingRule("A", 50, 3, 130),
+                new PricingRule("B", 30, 2, 45),
+                new PricingRule("C", 20),
+                new PricingRule("D", 15)
+            });
+            // Act
+            checkout.ScanSku("B");
+            var totalPrice = checkout.GetTotalPrice();
+
+            //Assert
+            // B: 1 for 30 => Total = 30
+            Assert.Equal(30, totalPrice);
+        }
+
+        [Fact]
+        public void GetTotalPrice_ThreeBs_appliesSpecialPriceForTwoPlusUnitPriceQuantityForOne()
+        {
+            // Arrange
+            var checkout = new Checkout(new List<PricingRule>
+            {
+                new PricingRule("A", 50, 3, 130),
+                new PricingRule("B", 30, 2, 45),
+                new PricingRule("C", 20),
+                new PricingRule("D", 15)
+            });
+            // Act
+            checkout.ScanSku("B");
+            checkout.ScanSku("B");
+            checkout.ScanSku("B");
+            var totalPrice = checkout.GetTotalPrice();
+
+            //Assert
+            // B: 2 for 45 + 1 for 30 => Total = 45 + 30 = 75
+            Assert.Equal(75, totalPrice);
         }
     }
 }
