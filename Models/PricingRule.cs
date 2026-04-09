@@ -10,7 +10,7 @@
         //Special offer price (e.g. 3 for 130)
         public int? SpecialPriceQuantity { get; set; }
 
-        // Total price for speical offer quantity
+        // Total price for special offer quantity
         public int? SpecialPriceAmount { get; set; }
 
 
