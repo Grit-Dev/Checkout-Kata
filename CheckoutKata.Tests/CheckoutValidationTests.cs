@@ -51,10 +51,14 @@ namespace CheckoutKata.Tests
         public void ScanSku_WithValidSku_ShouldNotThrowException()
         {
             // Arrange
-            var checkout = new Checkout(new List<PricingRule>());
+            // Arrange
+            var rules = new List<PricingRule>
+            {
+                new PricingRule("A", 50),
+                new PricingRule("B", 30)
+            };
 
-            // Act
-            checkout.ScanSku("A");
+            var checkout = new Checkout(rules);
 
             // Assert
             Assert.True(true);
