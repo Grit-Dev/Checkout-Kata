@@ -248,7 +248,7 @@ namespace CheckoutKata.Tests.Pricing
         }
 
         [Fact]
-        public void GetTotalPrice_SingleBUsesUnitPriceWhenSpecialPriceQuantityNotMet()
+        public void GetTotalPrice_SingleB_UsesUnitPriceWhenSpecialPriceQuantityNotMet()
         {
             // Arrange
             var checkout = new Checkout(new List<PricingRule>
@@ -268,7 +268,7 @@ namespace CheckoutKata.Tests.Pricing
         }
 
         [Fact]
-        public void GetTotalPrice_ThreeBs_appliesSpecialPriceForTwoPlusUnitPriceQuantityForOne()
+        public void GetTotalPrice_ThreeBs_AppliesSpecialPriceForTwoPlusUnitPriceForOne()
         {
             // Arrange
             var checkout = new Checkout(new List<PricingRule>
