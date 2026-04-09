@@ -19,8 +19,8 @@ namespace CheckoutKata.Models
         // Total price for speical offer quantity
         public int? SpecialPriceAmount { get; set; }
 
-        
-        public PricingRule(string itemCode, int unitPrice, int? specialPriceQuantity, int? specialPriceAmount) 
+
+        public PricingRule(string itemCode, int unitPrice, int? specialPriceQuantity, int? specialPriceAmount)
         {
             this.ItemCode = itemCode;
             this.UnitPrice = unitPrice;
@@ -28,6 +28,10 @@ namespace CheckoutKata.Models
             this.SpecialPriceAmount = specialPriceAmount;
         }
 
-
+        public PricingRule(string itemCode, int unitPrice)
+        {
+            this.ItemCode = itemCode;
+            this.UnitPrice = unitPrice;
+        }
     }
 }
