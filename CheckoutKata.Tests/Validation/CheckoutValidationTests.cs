@@ -18,7 +18,7 @@ namespace CheckoutKata.Tests.Validation
         }
 
         [Fact]
-        public void ScanKu_WithNullValue_ShouldThrowException()
+        public void ScanSKu_WithNullValue_ShouldThrowException()
         {
             // Arrange
             var checkout = new Checkout(new List<PricingRule>());
@@ -48,7 +48,7 @@ namespace CheckoutKata.Tests.Validation
         }
 
         [Fact]
-        public void ScanSku_WithValidSku_ShouldNotThrowException()
+        public void ScanSku_WithValidSku_ShouldAddItemSuccessfully()
         {
             // Arrange
             var rules = new List<PricingRule>
@@ -61,9 +61,10 @@ namespace CheckoutKata.Tests.Validation
 
             // Act
             checkout.ScanSku("A");
+            var totalprice = checkout.GetTotalPrice();
 
             // Assert
-            Assert.True(true);
+            Assert.Equal(50, totalprice);
         }
 
         [Fact]
@@ -78,8 +79,8 @@ namespace CheckoutKata.Tests.Validation
 
             var checkout = new Checkout(rules);
 
-            // Act & Assert
-            Assert.Throws<ArgumentException>(() => checkout.ScanSku("x"));
+            // Act
+           Assert.Throws<ArgumentException>(() => checkout.ScanSku("X"));
         }
 
 
