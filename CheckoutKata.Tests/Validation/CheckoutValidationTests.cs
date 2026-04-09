@@ -1,7 +1,7 @@
 using CheckoutKata.Models;
 using CheckoutKata.Services;
 
-namespace CheckoutKata.Tests
+namespace CheckoutKata.Tests.Validation
 {
     public class CheckoutValidationTests
     {
