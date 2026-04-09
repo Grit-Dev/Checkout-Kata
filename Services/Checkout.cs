@@ -72,6 +72,13 @@ namespace CheckoutKata.Services
                 throw new ArgumentException("Stock Keeping Units cannot be null or empty.", nameof(sku));
             }
 
+            bool skuExists = _pricingRules.Any(rule => rule.ItemCode == sku);
+
+            if(!skuExists)
+            {
+                throw new ArgumentException($"The SKU '{sku}' does not exist in the pricing rules.", nameof(sku));
+            }
+
             _scannedSkus.Add(sku);
         }
     }

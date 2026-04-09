@@ -60,9 +60,6 @@ namespace CheckoutKata.Tests
             Assert.True(true);
         }
 
-        //  Assert.Throws() Failure: No exception was thrown
-        // Expected: typeof(System.ArgumentException)
-        // - Hmm come back to and add protection around this. 
             [Fact]
         public void ScanSku_WithUnknownSku_ShouldThrowException()
         {
