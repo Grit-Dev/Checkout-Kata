@@ -100,6 +100,7 @@ namespace CheckoutKata.Tests.Validation
         {
             // Act
             var rule = new PricingRule("A", 50, 3, 130);
+
             // Assert
             Assert.NotNull(rule);
             Assert.Equal("A", rule.ItemCode);

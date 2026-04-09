@@ -36,6 +36,7 @@ namespace CheckoutKata.Tests.Pricing
                 new PricingRule("C", 20),
                 new PricingRule("D", 15)
             };
+
             var checkout = new Checkout(rules);
             checkout.ScanSku("C");
 
@@ -82,6 +83,7 @@ namespace CheckoutKata.Tests.Pricing
                 new PricingRule("C", 20),
                 new PricingRule("D", 15)
             };
+
             var checkout = new Checkout(rules);
             checkout.ScanSku("B");
             checkout.ScanSku("B");
@@ -105,6 +107,7 @@ namespace CheckoutKata.Tests.Pricing
                 new PricingRule("C", 20),
                 new PricingRule("D", 15)
             };
+
             var checkout = new Checkout(rules);
             checkout.ScanSku("B");
             checkout.ScanSku("A");
@@ -258,6 +261,7 @@ namespace CheckoutKata.Tests.Pricing
                 new PricingRule("C", 20),
                 new PricingRule("D", 15)
             });
+
             // Act
             checkout.ScanSku("B");
             var totalPrice = checkout.GetTotalPrice();
@@ -278,6 +282,7 @@ namespace CheckoutKata.Tests.Pricing
                 new PricingRule("C", 20),
                 new PricingRule("D", 15)
             });
+
             // Act
             checkout.ScanSku("B");
             checkout.ScanSku("B");
