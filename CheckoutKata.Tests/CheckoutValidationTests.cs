@@ -5,7 +5,49 @@ namespace CheckoutKata.Tests
         [Fact]
         public void Checkout_NullPricingRules_ThrowsArgumentException()
         {
-          // Testing commit check! 
+            // Arrange
+            // Act
+            // Assert
+        }
+
+        [Fact]
+        public void Checkout_NullPricingRules_ThrowsArgumentException()
+        {
+            // Arrange
+            // Act
+            // Assert
+        }
+
+        [Fact]
+        public void Checkout_NullPricingRules_ThrowsArgumentException()
+        {
+            // Arrange
+            // Act
+            // Assert
+        }
+
+        [Fact]
+        public void Checkout_NullPricingRules_ThrowsArgumentException()
+        {
+            // Arrange
+            // Act
+            // Assert
+        }
+
+        [Fact]
+        public void Checkout_NullPricingRules_ThrowsArgumentException()
+        {
+            // Arrange
+            // Act
+            // Assert
+        }
+
+        [Fact]
+        public void Checkout_NullPricingRules_ThrowsArgumentException()
+        {
+            // Arrange
+            // Act
+            // Assert
         }
     }
 }
