@@ -1,19 +1,21 @@
 ﻿using CheckoutKata.Interfaces;
 using CheckoutKata.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CheckoutKata.Services
 {
     public class Checkout : ICheckout
     {
-        //Nullable field - Come back too. 
         private readonly List<PricingRule> _pricingRules;
 
-        private readonly List<string> _scannedItems = new();
+        // Stock Keeping Units
+        private readonly List<string> _scannedSkus = new();
+
+        public Checkout(List<PricingRule> pricingRules)
+        {
+            _pricingRules = pricingRules ??
+                throw new ArgumentNullException(nameof(pricingRules),
+                "Pricing rules must be provided when creating a checkout instance.");
+        }
 
         public int GetTotalPrice()
         {
@@ -24,7 +26,7 @@ namespace CheckoutKata.Services
                 int quantityOfItemsScanned = 0;
 
                 // Count the number of times the item appears in the scanned items
-                foreach (var scannedItem in _scannedItems)
+                foreach (var scannedItem in _scannedSkus)
                 {
                     if (scannedItem == pricingRuleCode.ItemCode)
                     {
@@ -62,15 +64,15 @@ namespace CheckoutKata.Services
 
             return totalPrice;
         }
-        public void GetScannedItems(string item)
+        public void ScanSku(string sku)
         {
-            // Item = SKU: Stock Keeping Units
-            if (string.IsNullOrWhiteSpace(item))
+            // Stock Keeping Units
+            if (string.IsNullOrWhiteSpace(sku))
             {
-                throw new ArgumentException("Item cannot be null or empty.", nameof(item));
+                throw new ArgumentException("Stock Keeping Units cannot be null or empty.", nameof(sku));
             }
 
-            _scannedItems.Add(item);
+            _scannedSkus.Add(sku);
         }
     }
 }

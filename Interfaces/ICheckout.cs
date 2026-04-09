@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CheckoutKata.Interfaces
+﻿namespace CheckoutKata.Interfaces
 {
     public interface ICheckout
     {
-        // Item = SKU: Stock Keeping Units
-        public void GetScannedItems(string item);
+        // Stock Keeping Units
+        public void ScanSku(string sku);
 
         public int GetTotalPrice();
     }
