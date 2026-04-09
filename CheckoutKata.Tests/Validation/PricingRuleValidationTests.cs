@@ -82,6 +82,32 @@ namespace CheckoutKata.Tests.Validation
             Assert.Throws<ArgumentException>(() => new PricingRule("A", 50, null, 130));
         }
 
+        [Fact]
+        public void PricingRule_WithValidStandPrice_ShouldCreateRuleSuccessfully()
+        {
+            // Act
+            var rule = new PricingRule("C", 20);
 
+            // Assert
+            Assert.NotNull(rule);
+            Assert.Equal("C", rule.ItemCode);
+            Assert.Equal(20, rule.UnitPrice);
+            Assert.Null(rule.SpecialPriceQuantity);
+            Assert.Null(rule.SpecialPriceAmount);
+        }
+
+        [Fact]
+        public void PricingRule_WithValidSpecialPrice_ShouldCreateRuleSuccessfully()
+        {
+            // Act
+            var rule = new PricingRule("A", 50, 3, 130);
+            // Assert
+            Assert.NotNull(rule);
+            Assert.Equal("A", rule.ItemCode);
+            Assert.Equal(50, rule.UnitPrice);
+            Assert.Equal(3, rule.SpecialPriceQuantity);
+            Assert.Equal(130, rule.SpecialPriceAmount);
+
+        }
     }
 }
