@@ -1,12 +1,11 @@
 ﻿using CheckoutKata.Models;
-using System.Xml.Serialization;
 
 namespace CheckoutKata.Tests.Validation
 {
     public class PricingRuleValidationTests
     {
         [Fact]
-        public void pricingRule_WithNullItemCode_ShouldThrowException()
+        public void PricingRule_WithNullItemCode_ShouldThrowException()
         {
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new PricingRule(null!, 50));
@@ -20,7 +19,7 @@ namespace CheckoutKata.Tests.Validation
         }
 
         [Fact]
-        public void pricingRule_WithWhiteSpaceItemCode_ShouldThrowException()
+        public void PricingRule_WithWhiteSpaceItemCode_ShouldThrowException()
         {
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new PricingRule("   ", 50));
