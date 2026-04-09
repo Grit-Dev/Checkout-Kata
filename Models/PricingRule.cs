@@ -20,9 +20,9 @@ namespace CheckoutKata.Models
         public int? SpecialPriceAmount { get; set; }
 
         
-        public PricingRule(string ItemCode, int unitPrice, int? specialPriceQuantity, int? specialPriceAmount) 
+        public PricingRule(string itemCode, int unitPrice, int? specialPriceQuantity, int? specialPriceAmount) 
         {
-            this.ItemCode = ItemCode;
+            this.ItemCode = itemCode;
             this.UnitPrice = unitPrice;
             this.SpecialPriceQuantity = specialPriceQuantity;
             this.SpecialPriceAmount = specialPriceAmount;
