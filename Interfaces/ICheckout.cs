@@ -8,8 +8,9 @@ namespace CheckoutKata.Interfaces
 {
     public interface ICheckout
     {
-        public void Scan(string item);
+        // Item = SKU: Stock Keeping Units
+        public void GetScannedItems(string item);
 
-        public int GetTotalPrixe();
+        public int GetTotalPrice();
     }
 }

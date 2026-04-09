@@ -1,0 +1,76 @@
+﻿using CheckoutKata.Interfaces;
+using CheckoutKata.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CheckoutKata.Services
+{
+    public class Checkout : ICheckout
+    {
+        //Nullable field - Come back too. 
+        private readonly List<PricingRule> _pricingRules;
+
+        private readonly List<string> _scannedItems = new();
+
+        public int GetTotalPrice()
+        {
+            int totalPrice = 0;
+
+            foreach (var pricingRuleCode in _pricingRules)
+            {
+                int quantityOfItemsScanned = 0;
+
+                // Count the number of times the item appears in the scanned items
+                foreach (var scannedItem in _scannedItems)
+                {
+                    if (scannedItem == pricingRuleCode.ItemCode)
+                    {
+                        quantityOfItemsScanned++;
+                    }
+                }
+
+                // apply special offer price where configured, otherwise apply standard unit pricing
+                if (pricingRuleCode.SpecialPriceQuantity.HasValue &&
+                    pricingRuleCode.SpecialPriceAmount.HasValue &&
+                    pricingRuleCode.SpecialPriceQuantity.Value > 0) // guard against divide-by-zero
+                {
+                    int offerQuantity = pricingRuleCode.SpecialPriceQuantity.Value;
+                    int offerPrice = pricingRuleCode.SpecialPriceAmount.Value;
+
+                    // Check how many times the special offer can be applied?
+                    int numberOfOfferApplications = quantityOfItemsScanned / offerQuantity;
+
+                    // Check how many items remain outside the offer
+                    int remainingItemCount = quantityOfItemsScanned % offerQuantity;
+
+                    // apply discounted total for offer groups
+                    totalPrice = totalPrice + (numberOfOfferApplications * offerPrice);
+
+                    // apply normal pricing for leftover items
+                    totalPrice = totalPrice + (remainingItemCount * pricingRuleCode.UnitPrice);
+                }
+                else
+                {
+                    // no special price? => apply standard unit pricing
+                    totalPrice = totalPrice + (quantityOfItemsScanned * pricingRuleCode.UnitPrice);
+                }
+
+            }
+
+            return totalPrice;
+        }
+        public void GetScannedItems(string item)
+        {
+            // Item = SKU: Stock Keeping Units
+            if (string.IsNullOrWhiteSpace(item))
+            {
+                throw new ArgumentException("Item cannot be null or empty.", nameof(item));
+            }
+
+            _scannedItems.Add(item);
+        }
+    }
+}
