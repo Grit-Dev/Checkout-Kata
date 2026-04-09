@@ -33,12 +33,17 @@ namespace CheckoutKata.Models
                 throw new ArgumentException("Unit price cannot be negative.", nameof(unitPrice));
             }
 
-            if(specialPriceQuantity.HasValue && specialPriceQuantity.Value <= 0)
+            if(specialPriceQuantity.HasValue != specialPriceAmount.HasValue)
+            {
+                throw new ArgumentException("Both special price quantity and amount must be provided together.");
+            }
+
+            if (specialPriceQuantity.HasValue && specialPriceQuantity.Value <= 0)
             {
                 throw new ArgumentException("Special price quantity must be greater than zero.", nameof(specialPriceQuantity));
             }
 
-            if(specialPriceAmount.HasValue && specialPriceAmount.Value < 0)
+            if(specialPriceAmount.HasValue && specialPriceAmount.Value <= 0)
             {
                 throw new ArgumentException("Special price amount cannot be negative.", nameof(specialPriceAmount));
             }
