@@ -37,14 +37,14 @@ namespace CheckoutKata.Tests.Validation
         public void PricingRule_withNegativeUnitPrice_ShouldThrowException()
         {
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => new PricingRule("A", -10));
+            Assert.Throws<ArgumentException>(() => new PricingRule("B", -10));
         }
 
         [Fact]
         public void PricingRule_WithZeroSpecialPriceQuantity_ShouldThrowException()
         {
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => new PricingRule("A", 50, 0, 130));
+            Assert.Throws<ArgumentException>(() => new PricingRule("C", 50, 0, 130));
         }
 
         [Fact]
@@ -60,6 +60,28 @@ namespace CheckoutKata.Tests.Validation
             // Act & Assert
             Assert.Throws<ArgumentException>(() => new PricingRule("A", 50, 3, 0));
         }
+
+        [Fact]
+        public void PricingRuleWithNegativeSpecialPriceAmount_ShouldThrowException()
+        {
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => new PricingRule("A", 50, 3, -10));
+        }
+
+        [Fact]
+        public void PricingRule_WithSpecialPriceQuantityButNoAmount_ShouldThrowException()
+        {
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => new PricingRule("A", 50, 3, null));
+        }
+
+        [Fact]
+        public void PricingRule_WithSpecialPriceAcmountButNoQuantity_ShouldThrowException()
+        {
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => new PricingRule("A", 50, null, 130));
+        }
+
 
     }
 }
